@@ -191,12 +191,17 @@ void insertSortedByForTest() {
 @Test
     void isOneSwapTest() {
         assertFalse(isOneSwap(new int[]{1, 2, 3, 4, 5}));
-        assertFalse(isOneSwap(new int[]{1, 5, 3, 4, 2}));
+        assertTrue(isOneSwap(new int[]{1, 5, 3, 4, 2}));
         assertTrue(isOneSwap(new int[]{1, 2, 3, 5, 4}));
         assertFalse(isOneSwap(new int[]{3, 3, 3, 3}));
         assertTrue(isOneSwap(new int[]{1, 2, 3, 4, 6, 5, 7, 8, 9, 10}));
         assertTrue(isOneSwap(new int[]{-5, -4, -2, -3, -1, 0, 1, 2, 3, 4, 5}));
+        assertFalse(isOneSwap(new int[]{1, 2, 13, 4, 5, 4, 4, 20}));
+         int [] ar = {1, 2, 13, 4, 4, 4, 4, 20};
+        assertTrue(isOneSwap(ar));
+        assertFalse(isOneSwap(new int[]{1,2,3,5,6,4,7,9,8}));
     }
+
 }
 
     

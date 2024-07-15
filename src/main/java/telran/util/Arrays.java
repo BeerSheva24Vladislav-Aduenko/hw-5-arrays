@@ -102,40 +102,39 @@ public static int[] insertSortedByFor(int[] arSorted, int number) {
     return newArray;
 }
 
-public static boolean isOneSwap(int [] array) {
-    int firstWrongIndex = -1;
-    for (int i = 0; i < array.length - 1; i++) {
+public static boolean isOneSwap(int[] array) {
+    int n = array.length;
+    int firstWrongIndex = -1, secondWrongIndex = -1;
+
+    for (int i = 0; i < n - 1; i++) {
         if (array[i] > array[i + 1]) {
-            if (firstWrongIndex == -1) {
-                firstWrongIndex = i;
-            } else {
-                return false;
-            }
+            firstWrongIndex = i;
+            break;
         }
     }
+  
     if (firstWrongIndex == -1) {
         return false;
     }
-    if (firstWrongIndex == 0) {
-        int temp = array[0];
-        array[0] = array[1];
-        array[1] = temp;
-    } else if (firstWrongIndex == array.length - 1) {
-        int temp = array[array.length - 1];
-        array[array.length - 1] = array[array.length - 2];
-        array[array.length - 2] = temp;
-    } else {
-        int temp = array[firstWrongIndex];
-        array[firstWrongIndex] = array[firstWrongIndex + 1];
-        array[firstWrongIndex + 1] = temp;
+
+    for (int i = n - 1; i > firstWrongIndex; i--) {
+        if (array[i] < array[firstWrongIndex]) {
+            secondWrongIndex = i;
+            break;
+        }
     }
-    for (int i = 0; i < array.length - 1; i++) {
+
+    swap(array, firstWrongIndex, secondWrongIndex);
+
+    for (int i = 0; i < n - 1; i++) {
         if (array[i] > array[i + 1]) {
             return false;
         }
     }
+
     return true;
 }
+
 
 
 }
