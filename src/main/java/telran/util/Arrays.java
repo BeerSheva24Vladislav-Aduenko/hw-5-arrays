@@ -2,6 +2,8 @@ package telran.util;
 
 import java.util.Comparator;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
+
 
 public class Arrays {
 public static int search(int[] array, int key) {
@@ -211,18 +213,29 @@ private static <T> void swap(T[] array, int i, int j) {
         T[] result = java.util.Arrays.copyOf(array, 0);
         for (int i = 0; i < array.length; i++) {                      
             if (!predicate.test(array[i])) {
-                result = insert(result, i, array[i]);
+                result = insert(result, result.length, array[i]);
             }
         }
         return result;
     }
-    
 
-    public static <T> int binarySearch(T[] array, T key) {
-        //TODO
-        //The code should be base on binarySearch 
-        return -1;
+    public static <T> int binarySearch2(T[] array, Object key) {
+        int left = 0;
+        int right = array.length - 1;
+        int middle = (left + right) / 2;
+        while (left <= right) {
+            if (array[middle].equals(key)) {
+                return middle;
+            } else if (((Comparable<T>) array[middle]).compareTo((T) key) < 0) {
+                left = middle + 1;
+            } else {
+                right = middle - 1;
+            }
+            middle = (left + right) / 2;
+        }
+        return -(left + 1);
     }
+    
 
 
 

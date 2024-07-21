@@ -281,6 +281,44 @@ void insertSortedByForTest() {
         assertArrayEquals(expected, find(array, new OddNumbersPredicate()));
 
     }
+
+    @Test 
+    void removeIfTest() {
+        Integer[] array = {7, -8, 10, -100, 13, -10, 99};
+        Integer[] expected = {-8, 10, -100, -10};
+        assertArrayEquals(expected, removeIf(array, new OddNumbersPredicate()));
+
+        Integer[] expected2 = {7, 13, 99};
+        assertArrayEquals(expected2, removeIf(array, new EvenNumbersPredicate()));
+
+        String[] array3 = {"apple", "banana", "cherry", "date"};
+        String[] expected3 = {"apple", "cherry", "date"};
+        assertArrayEquals(expected3, removeIf(array3, new startsWithB()));
+    }
+
+
+    @Test
+    public void binarySearch2Test() {
+        String [] testArray = {"1", "3", "5", "7", "9", "11"};
+        String key = "3";
+        assertEquals(1, binarySearch2(testArray, key));
+
+        Integer [] testArray2 = {0, 2, 4, 6, 8, 10, 12, 14};
+        int key2 = 6;
+        assertEquals(3, binarySearch2(testArray2, key2 ));
+
+        String [] testArray3 = {"1", "3", "5", "7", "9", "11", "a", "b", "c", "d"};
+        String key3 = "d";
+        assertEquals(9, binarySearch2(testArray3, key3 ));
+
+        String [] testArray4 = { "a", "aa", "aaa", "aaaa", "aaaaa"};
+        String key4 = "aa";
+        assertEquals(1, binarySearch2(testArray4, key4));
+
+        Integer [] testArray5 = { 1, 11, 111, 1111, 1111, 11111, 111111, 1111111};
+        int key5 = 111;
+        assertEquals(2, binarySearch2(testArray5, key5));
+    }
 }
 
 
