@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static telran.util.Arrays.*;
 
-import java.util.Comparator;
 import java.util.Random;
 
 public class ArraysTest {
@@ -211,11 +210,11 @@ void insertSortedByForTest() {
         int [][] arraysTrue = {arTrue1, arTrue2, arTrue3, arTrue4};
         int [][] arraysFalse = {arFalse1, arFalse2, arFalse3};
             for(int i = 0; i < arraysTrue.length; i++) {        
-    assertTrue(isOneSwap(arraysTrue[i]), "" + (i + 1));
-}
+        assertTrue(isOneSwap(arraysTrue[i]), "" + (i + 1));
+        }
             for(int i = 0; i < arraysFalse.length; i++) {
         assertFalse(isOneSwap(arraysFalse[i]), "" + (i + 1));
-}
+        }
     }
 
 
@@ -248,14 +247,43 @@ void insertSortedByForTest() {
         String key4 = "aa";
         assertEquals(1, binarySearchNew(testArray4, key4, new ComparatorString()));
 
-        Integer [] testArray5 = { 1, 11, 111, 1111, 11111, 111111, 1111111};
+        Integer [] testArray5 = { 1, 11, 111, 1111, 1111, 11111, 111111, 1111111};
         int key5 = 111;
         assertEquals(2, binarySearchNew(testArray5, key5, new ComparatorInt()));
+    }
 
+    @Test
+    void binarySearchNoComparator(){
+        String [] strings = {"aa", "cfta", "lmn", "w"};
+        Person prs1 = new Person(10, "Vasya");
+        Person prs2 = new Person(20, "Itay");
+        Person prs3 = new Person(30, "Sara");
+        Person [] persons ={ prs1, prs2, prs3 };
+
+        assertEquals(1, java.util.Arrays.binarySearch(strings, "cfta"));
+        assertEquals(0, java.util.Arrays.binarySearch(persons, prs1));
+        assertEquals(-1, java.util.Arrays.binarySearch(persons, new Person(5, "Sergei")));
+    }
+
+    @Test
+    void evenOddSorting() {
+        Integer[] array = {7, -8, 10, -100, 13, -10, 99};
+        Integer[] expected = {-100, -10, -8, 10, 99, 13, 7};
+        sort(array, new ComparatorEvenOddSort());
+        assertArrayEquals(expected, array);
     }
 
 
+    @Test
+    void findTest() {
+        Integer[] array = {7, -8, 10, -100, 13, -10, 99};
+        Integer[] expected = {7, 13, 99};
+        assertArrayEquals(expected, find(array, new OddNumbersPredicate()));
+
+    }
 }
+
+
 
     
     
