@@ -233,23 +233,23 @@ void insertSortedByForTest() {
     public void binarySearchNewTest() {
         String [] testArray = {"1", "3", "5", "7", "9", "11"};
         String key = "3";
-        assertEquals(1, binarySearchNew(testArray, key, new ComparatorString()));
+        assertEquals(1, binarySearch(testArray, key, new ComparatorString()));
 
         Integer [] testArray2 = {0, 2, 4, 6, 8, 10, 12, 14};
         int key2 = 6;
-        assertEquals(3, binarySearchNew(testArray2, key2, new ComparatorInt()));
+        assertEquals(3, binarySearch(testArray2, key2, new ComparatorInt()));
 
         String [] testArray3 = {"1", "3", "5", "7", "9", "11", "a", "b", "c", "d"};
         String key3 = "d";
-        assertEquals(9, binarySearchNew(testArray3, key3, new ComparatorString()));
+        assertEquals(9, binarySearch(testArray3, key3, new ComparatorString()));
 
         String [] testArray4 = { "a", "aa", "aaa", "aaaa", "aaaaa"};
         String key4 = "aa";
-        assertEquals(1, binarySearchNew(testArray4, key4, new ComparatorString()));
+        assertEquals(1, binarySearch(testArray4, key4, new ComparatorString()));
 
         Integer [] testArray5 = { 1, 11, 111, 1111, 1111, 11111, 111111, 1111111};
         int key5 = 111;
-        assertEquals(2, binarySearchNew(testArray5, key5, new ComparatorInt()));
+        assertEquals(2, binarySearch(testArray5, key5, new ComparatorInt()));
     }
 
     @Test
@@ -301,23 +301,23 @@ void insertSortedByForTest() {
     public void binarySearch2Test() {
         String [] testArray = {"1", "3", "5", "7", "9", "11"};
         String key = "3";
-        assertEquals(1, binarySearch2(testArray, key));
+        assertEquals(1, binarySearch(testArray, key));
 
         Integer [] testArray2 = {0, 2, 4, 6, 8, 10, 12, 14};
         int key2 = 6;
-        assertEquals(3, binarySearch2(testArray2, key2 ));
+        assertEquals(3, binarySearch(testArray2, key2 ));
 
         String [] testArray3 = {"1", "3", "5", "7", "9", "11", "a", "b", "c", "d"};
         String key3 = "d";
-        assertEquals(9, binarySearch2(testArray3, key3 ));
+        assertEquals(9, binarySearch(testArray3, key3 ));
 
         String [] testArray4 = { "a", "aa", "aaa", "aaaa", "aaaaa"};
         String key4 = "aa";
-        assertEquals(1, binarySearch2(testArray4, key4));
+        assertEquals(1, binarySearch(testArray4, key4));
 
         Integer [] testArray5 = { 1, 11, 111, 1111, 1111, 11111, 111111, 1111111};
         int key5 = 111;
-        assertEquals(2, binarySearch2(testArray5, key5));
+        assertEquals(2, binarySearch(testArray5, key5));
     }
 }
 
