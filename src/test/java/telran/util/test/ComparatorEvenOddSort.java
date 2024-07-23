@@ -5,10 +5,12 @@ import java.util.Comparator;
 public class ComparatorEvenOddSort implements Comparator<Integer> {
 
 @Override
-    public int compare(Integer o1, Integer o2) {
-        int evenOddComparison = Integer.compare(o1 % 2, o2 % 2);
-        
-        return evenOddComparison != 0 ? evenOddComparison : 
-           Integer.compare(o1, o2) * (o1 % 2 == 0 ? 1 : -1);
+    public int compare(Integer arg0, Integer arg1) {
+        boolean isArg0Even = arg0 % 2 == 0;
+        boolean isArg1Even = arg1 % 2 == 0;
+        boolean noSwapFlag = (isArg0Even && !isArg1Even) ||
+        (isArg0Even && isArg1Even && arg0 <= arg1) ||
+         (!isArg0Even && !isArg1Even && arg0 >= arg1);
+        return noSwapFlag ? -1 : 1;
     }
 }
