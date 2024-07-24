@@ -226,8 +226,22 @@ private static <T> void swap(T[] array, int i, int j) {
     }
 
 
+      /**
+    * 
+    * @param chars - array of char primitives
+    * @param mustBeRules - array of rules that must be true
+    * @param mustNotBeRule array of rules that must be false
+    * @return empty error message if array of chars matches all rules otherwise specific error message saying what rules don't match
+    */
+    public static String matchesRules(char[] chars,
+     CharacterRule[] mustBeRules, CharacterRule[] mustNotBeRule) {
+        //consider the class Character for rules definition
+        return "";
+     }
+
 
 }
+
 
 
 

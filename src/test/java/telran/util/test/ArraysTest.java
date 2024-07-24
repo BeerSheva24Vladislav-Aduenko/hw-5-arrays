@@ -223,9 +223,9 @@ void insertSortedByForTest() {
         String [] strings = {"lmn", "cfta", "w", "aa"};
         String [] expectedASCII = {"aa", "cfta", "lmn", "w"};
         String [] expectedLenght = {"w", "aa", "lmn", "cfta", };
-        sort (strings, new ComparatorASCII());
+        sort (strings, (a, b) -> a.compareTo(b));
         assertArrayEquals(expectedASCII, strings);
-        sort (strings, new ComparatorLenght());
+        sort(strings, (a, b) -> Integer.compare(a.length(), b.length()));
         assertArrayEquals(expectedLenght, strings);
     }
 
@@ -269,7 +269,15 @@ void insertSortedByForTest() {
     void evenOddSorting() {
         Integer[] array = {7, -8, 10, -100, 13, -10, 99};
         Integer[] expected = {-100, -10, -8, 10, 99, 13, 7};
-        sort(array, new ComparatorEvenOddSort());
+        // sort(array, new ComparatorEvenOddSort());
+        sort(array, (arg0, arg1) -> {
+            boolean isArg0Even = arg0 % 2 == 0;
+            boolean isArg1Even = arg1 % 2 == 0;
+            boolean noSwapFlag = (isArg0Even && !isArg1Even) ||
+            (isArg0Even && isArg1Even && arg0 <= arg1) ||
+            (!isArg0Even && !isArg1Even && arg0 >= arg1);
+            return noSwapFlag ? -1 : 1;
+        });
         assertArrayEquals(expected, array);
     }
 
@@ -278,7 +286,8 @@ void insertSortedByForTest() {
     void findTest() {
         Integer[] array = {7, -8, 10, -100, 13, -10, 99};
         Integer[] expected = {7, 13, 99};
-        assertArrayEquals(expected, find(array, new OddNumbersPredicate()));
+        // assertArrayEquals(expected, find(array, new OddNumbersPredicate()));
+        assertArrayEquals(expected, find(array, n -> n % 2 != 0));
 
     }
 
@@ -286,7 +295,9 @@ void insertSortedByForTest() {
     void removeIfTest() {
         Integer[] array = {7, -8, 10, -100, 13, -10, 99};
         Integer[] expected = {-8, 10, -100, -10};
-        assertArrayEquals(expected, removeIf(array, new OddNumbersPredicate()));
+        // assertArrayEquals(expected, removeIf(array, new OddNumbersPredicate()));
+        Integer[] actual = removeIf(array, n -> n % 2 != 0);
+        assertArrayEquals(expected, actual);
 
         Integer[] expected2 = {7, 13, 99};
         assertArrayEquals(expected2, removeIf(array, new EvenNumbersPredicate()));
@@ -318,6 +329,16 @@ void insertSortedByForTest() {
         Integer [] testArray5 = { 1, 11, 111, 1111, 1111, 11111, 111111, 1111111};
         int key5 = 111;
         assertEquals(2, binarySearch(testArray5, key5));
+    }
+
+    @Test 
+    void matchesRulesTest() {
+    //Must be rules: at least one capital letter, at least one lower case letter, at least one digit, at least one dot(.)
+    //Must not be rules: space is disallowed
+    //examples: mathes - {'a', 'n', '*', 'G', '.', '.', '1'}
+    //mismatches - {'a', 'n', '*', 'G', '.', '.', '1', ' '} -> "space disallowed",
+    // {'a', 'n', '*',  '.', '.', '1'} -> "no capital",
+    // {'a', 'n', '*', 'G', '.', '.'} -> "no digit"
     }
 }
 
