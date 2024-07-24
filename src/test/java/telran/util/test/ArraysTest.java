@@ -1,6 +1,9 @@
 package telran.util.test;
 
 import org.junit.jupiter.api.Test;
+
+import telran.util.CharacterRule;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static telran.util.Arrays.*;
 
@@ -333,12 +336,26 @@ void insertSortedByForTest() {
 
     @Test 
     void matchesRulesTest() {
-    //Must be rules: at least one capital letter, at least one lower case letter, at least one digit, at least one dot(.)
-    //Must not be rules: space is disallowed
-    //examples: mathes - {'a', 'n', '*', 'G', '.', '.', '1'}
-    //mismatches - {'a', 'n', '*', 'G', '.', '.', '1', ' '} -> "space disallowed",
-    // {'a', 'n', '*',  '.', '.', '1'} -> "no capital",
-    // {'a', 'n', '*', 'G', '.', '.'} -> "no digit"
+        CharacterRule [] mustBeRules = new CharacterRule[] {
+            new CharacterRule(true, Character::isDigit, "no digit"),
+            new CharacterRule(true, Character::isUpperCase, "no capital"),
+            new CharacterRule(true, Character::isLowerCase, "no lower"),
+            new CharacterRule(true, c -> c == '.', "no dot"),
+        };
+
+        CharacterRule [] mustNotBeRule= new CharacterRule[] {
+            new CharacterRule(false, Character::isSpaceChar, "space disallowed"),
+        };
+
+        char[] charArr1 = new char[] {'a', 'n', '*', 'G', '.', '.', '1'};
+        char[] charArr2 = new char[]  {'a', 'n', '*', 'G', '.', '1', ' '};
+        char[] charArr3 = new char[]  {'a', 'n', 'm', 'm',};
+        char[] charArr4 = new char[]  {'A', 'N', ' '};
+
+        assertEquals("", matchesRules(charArr1, mustBeRules, mustNotBeRule));
+        assertEquals("space disallowed", matchesRules(charArr2, mustBeRules, mustNotBeRule));
+        assertEquals("no digit, no capital, no dot", matchesRules(charArr3, mustBeRules, mustNotBeRule));
+        assertEquals("no digit, no lower, no dot, space disallowed", matchesRules(charArr4, mustBeRules, mustNotBeRule));
     }
 }
 

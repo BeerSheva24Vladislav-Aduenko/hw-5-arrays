@@ -1,7 +1,11 @@
 package telran.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -233,11 +237,36 @@ private static <T> void swap(T[] array, int i, int j) {
     * @param mustNotBeRule array of rules that must be false
     * @return empty error message if array of chars matches all rules otherwise specific error message saying what rules don't match
     */
-    public static String matchesRules(char[] chars,
-     CharacterRule[] mustBeRules, CharacterRule[] mustNotBeRule) {
-        //consider the class Character for rules definition
-        return "";
+    public static String matchesRules(char[] chars, CharacterRule[] mustBeRules, CharacterRule[] mustNotBeRule) {
+        List<String> errorMessages = new ArrayList<String>();
+        errorMessages.addAll(checkRules(chars, mustBeRules));
+        errorMessages.addAll(checkRules(chars, mustNotBeRule));
+        return String.join(", ", errorMessages);
      }
+
+     private static List<String> checkRules(char[] chars, CharacterRule[] rules) {
+        List<String> errors = new ArrayList<String>();
+        for (int i = 0; i < rules.length; i++) {
+            String errorMessage = checkRule(chars, rules[i]);
+            if (errorMessage != null) errors.add(errorMessage);
+        }
+        return errors;
+    }
+
+    private static String checkRule(char[] chars, CharacterRule rule) {
+        boolean isRuleViolated = true;
+        String errorMessage = null;
+        for (char letter : chars) {
+            if (rule.predicate.test(letter)) {
+                isRuleViolated = false;
+                break;
+            }
+        }
+        if ((rule.flag && isRuleViolated) || (!rule.flag && !isRuleViolated)) {
+            errorMessage = rule.errorMessage;
+        }
+        return errorMessage; 
+    }
 
 
 }
