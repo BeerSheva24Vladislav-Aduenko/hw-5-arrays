@@ -268,7 +268,12 @@ private static <T> void swap(T[] array, int i, int j) {
         return errorMessage; 
     }
 
-
+    public static <T> T[] add(T[] array, T element) {
+        T[] res = java.util.Arrays.copyOf(array, array.length + 1);
+        res[array.length] = element;
+        return res;
+    }
+    
 }
 
 
